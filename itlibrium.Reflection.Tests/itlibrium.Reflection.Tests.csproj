@@ -3,7 +3,7 @@
   <PropertyGroup>    
     <TargetFramework>netcoreapp1.1</TargetFramework>    
     <Authors>Marcin Markowski</Authors>    
-    <Company>itlibrium</Company>    
+    <Company>Extensions for LambdaExpression</Company>    
     <Description>Tests for itlibrium.Reflection</Description>    
     <AssemblyVersion>1.0.0</AssemblyVersion>    
     <FileVersion>1.0.0</FileVersion>
@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\itlibrium.Reflection\itlibrium.Reflection.csproj" />
+    <ProjectReference Include="..\ITLibrium.Reflection\ITLibrium.Reflection.csproj" />
   </ItemGroup>
 
   <ItemGroup>

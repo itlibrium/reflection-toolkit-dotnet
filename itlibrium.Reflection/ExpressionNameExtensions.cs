@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
 
-namespace itlibrium.Reflection
+namespace ITLibrium.Reflection
 {
     public static class ExpressionNameExtensions
     {

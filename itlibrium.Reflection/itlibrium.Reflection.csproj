@@ -4,7 +4,7 @@
     <TargetFramework>netstandard1.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>Reflection helpers for C#</Description>
-    <Company>itlibrium</Company>
+    <Company>ITLibrium</Company>
     <Authors>Marcin Markowski</Authors>
     <PostBuildEvent></PostBuildEvent>
     <Version>1.0.0</Version>
@@ -13,6 +13,7 @@
     <RepositoryUrl>https://github.com/itlibrium/Reflection</RepositoryUrl>
     <PackageTags>.Net Core, C#, Reflection</PackageTags>
     <FileVersion>1.0.0</FileVersion>
+    <PackageReleaseNotes>Extensions for LambdaExpression</PackageReleaseNotes>
   </PropertyGroup>
 
 </Project>

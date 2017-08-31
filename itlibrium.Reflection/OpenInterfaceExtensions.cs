@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace itlibrium.Reflection
+namespace ITLibrium.Reflection
 {
     public static class OpenInterfaceExtensions
     {

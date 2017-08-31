@@ -4,7 +4,7 @@ using System.Linq;
 using Shouldly;
 using Xunit;
 
-namespace itlibrium.Reflection.Tests
+namespace ITLibrium.Reflection.Tests
 {
     public class OpenInterfaceExtensionsTests
     {
