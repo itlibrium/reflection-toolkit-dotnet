@@ -5,14 +5,13 @@
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>Reflection helpers for C#</Description>
     <Company>ITLibrium</Company>
-    <Authors>Marcin Markowski</Authors>
-    <PostBuildEvent></PostBuildEvent>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <Authors>Marcin Markowski</Authors>    
+    <Version>1.0.1</Version>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
     <PackageProjectUrl>https://github.com/itlibrium/Reflection</PackageProjectUrl>
     <RepositoryUrl>https://github.com/itlibrium/Reflection</RepositoryUrl>
     <PackageTags>.Net Core, C#, Reflection</PackageTags>
-    <FileVersion>1.0.0</FileVersion>
+    <FileVersion>1.0.1</FileVersion>
     <PackageReleaseNotes>Extensions for LambdaExpression</PackageReleaseNotes>
   </PropertyGroup>
 
