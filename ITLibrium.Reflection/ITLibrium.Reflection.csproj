@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>Reflection helpers for C#</Description>
     <Company>ITLibrium</Company>
-    <Authors>Marcin Markowski</Authors>    
+    <Authors>Marcin Markowski</Authors>
     <Version>1.0.1</Version>
     <AssemblyVersion>1.0.1</AssemblyVersion>
     <PackageProjectUrl>https://github.com/itlibrium/Reflection</PackageProjectUrl>
@@ -14,5 +13,7 @@
     <FileVersion>1.0.1</FileVersion>
     <PackageReleaseNotes>Extensions for LambdaExpression</PackageReleaseNotes>
   </PropertyGroup>
-
+  <ItemGroup>
+    <PackageReference Include="NETStandard.Library" Version="2.0.1" />
+  </ItemGroup>
 </Project>

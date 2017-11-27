@@ -12,12 +12,10 @@ namespace ITLibrium.Reflection
 
         public static string GetName(this LambdaExpression expression)
         {
-            MemberExpression memberExp;
-            if (TryGetMemberExpression(expression.Body, out memberExp))
+            if (TryGetMemberExpression(expression.Body, out MemberExpression memberExp))
                 return GetFieldOrPropertyName(memberExp);
 
-            MethodCallExpression methodCallExp;
-            if (TryGetMethodCallExpression(expression.Body, out methodCallExp))
+            if (TryGetMethodCallExpression(expression.Body, out MethodCallExpression methodCallExp))
                 return methodCallExp.Method.Name;
 
             throw new ArgumentException(InvalidExpressionError, nameof(expression));
@@ -29,15 +27,13 @@ namespace ITLibrium.Reflection
             Expression currentExp = expression.Body;
             while (true)
             {
-                MemberExpression memberExp;
-                MethodCallExpression methodCallExp;
-                if (TryGetMemberExpression(currentExp, out memberExp))
+                if (TryGetMemberExpression(currentExp, out MemberExpression memberExp))
                 {
                     string element = GetFieldOrPropertyName(memberExp);
                     elements.Add(element);
                     currentExp = memberExp.Expression;
                 }
-                else if (TryGetMethodCallExpression(currentExp, out methodCallExp))
+                else if (TryGetMethodCallExpression(currentExp, out MethodCallExpression methodCallExp))
                 {
                     string element = methodCallExp.Method.Name;
                     elements.Add(element);
@@ -81,20 +77,17 @@ namespace ITLibrium.Reflection
             if (exp.NodeType != ExpressionType.Convert && exp.NodeType != ExpressionType.ConvertChecked)
                 return exp;
 
-            var castExp = exp as UnaryExpression;
-            return castExp == null ? exp : castExp.Operand;
+            return exp is UnaryExpression castExp ? castExp.Operand : exp;
         }
 
         private static string GetFieldOrPropertyName(MemberExpression memberExp)
         {
             MemberInfo memberInfo = memberExp.Member;
 
-            var propertyInfo = memberInfo as PropertyInfo;
-            if (propertyInfo != null)
+            if (memberInfo is PropertyInfo propertyInfo)
                 return propertyInfo.Name;
 
-            var fieldInfo = memberInfo as FieldInfo;
-            if (fieldInfo != null)
+            if (memberInfo is FieldInfo fieldInfo)
                 return fieldInfo.Name;
 
             throw new ArgumentException(InvalidExpressionError, nameof(memberExp));

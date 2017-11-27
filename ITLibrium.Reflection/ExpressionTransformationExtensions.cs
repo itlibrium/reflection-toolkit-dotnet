@@ -10,8 +10,7 @@ namespace ITLibrium.Reflection
 
         public static Action<TSource, TValue> CreateSetter<TSource, TValue>(this Expression<Func<TSource, TValue>> getter)
         {
-            Action<TSource, TValue> setter;
-            if (!TryCreateSetter(getter, out setter))
+            if (!TryCreateSetter(getter, out Action<TSource, TValue> setter))
                 throw new ArgumentException(InvalidExpressionError, nameof(getter));
 
             return setter;
@@ -19,13 +18,10 @@ namespace ITLibrium.Reflection
 
         public static bool TryCreateSetter<TSource, TValue>(this Expression<Func<TSource, TValue>> getter, out Action<TSource, TValue> setter)
         {
-            var memberExp = getter.Body as MemberExpression;
-            if (memberExp == null)
+            if (!(getter.Body is MemberExpression memberExp))
                 throw new ArgumentException(InvalidExpressionError, nameof(getter));
 
-            var propertyInfo = memberExp.Member as PropertyInfo;
-            var fieldInfo = memberExp.Member as FieldInfo;
-            if ((propertyInfo?.SetMethod == null || !propertyInfo.SetMethod.IsPublic) && (fieldInfo == null || fieldInfo.IsInitOnly))
+            if (CanSet(memberExp.Member))
             {
                 setter = null;
                 return false;
@@ -44,6 +40,19 @@ namespace ITLibrium.Reflection
                 valueExp).Compile();
 
             return true;
+        }
+
+        private static bool CanSet(MemberInfo memberInfo)
+        {
+            switch (memberInfo)
+            {
+                case PropertyInfo propertyInfo:
+                    return propertyInfo.SetMethod != null && propertyInfo.SetMethod.IsPublic;
+                case FieldInfo fieldInfo:
+                    return !fieldInfo.IsInitOnly;
+                default:
+                    return false;
+            }
         }
     }
 }

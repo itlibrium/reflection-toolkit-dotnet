@@ -11,16 +11,13 @@ namespace ITLibrium.Reflection
         public static TAttribute GetAttribute<TAttribute>(this LambdaExpression expression, bool inherit = true)
             where TAttribute : Attribute
         {
-            var methodCallExp = expression.Body as MethodCallExpression;
-            if (methodCallExp != null)
+            if (expression.Body is MethodCallExpression methodCallExp)
                 return methodCallExp.Method.GetCustomAttribute<TAttribute>(inherit);
 
-            var memberExp = expression.Body as MemberExpression;
-            if (memberExp != null)
+            if (expression.Body is MemberExpression memberExp)
                 return memberExp.Member.GetCustomAttribute<TAttribute>(inherit);
 
-            var constructorExp = expression.Body as NewExpression;
-            if (constructorExp != null)
+            if (expression.Body is NewExpression constructorExp)
                 return constructorExp.Constructor.GetCustomAttribute<TAttribute>(inherit);
 
             throw new ArgumentException(InvalidExpressionError, nameof(expression));

@@ -23,16 +23,23 @@ namespace ITLibrium.Reflection.Tests
             Action<Component, int> setter = expression.CreateSetter();
             setter.ShouldNotBeNull();
         }
+        
+        [Fact]
+        public void CanNotCreateSetterForReadOnlyProperty()
+        {
+            Expression<Func<Component, DateTime>> expression = c => c.Date;
+            Should.Throw<ArgumentException>(() => expression.CreateSetter());
+        }
 
         [Fact]
-        public void CantCreateSetterForReadOnlyField()
+        public void CanNotCreateSetterForReadOnlyField()
         {
             Expression<Func<Component, string>> expression = c => c.Id;
             Should.Throw<ArgumentException>(() => expression.CreateSetter());
         }
 
         [Fact]
-        public void CantCreateSetterForPropertyWithPrivateSetter()
+        public void CanNotCreateSetterForPropertyWithPrivateSetter()
         {
             Expression<Func<Component, int>> expression = c => c.No;
             Should.Throw<ArgumentException>(() => expression.CreateSetter());
@@ -53,6 +60,9 @@ namespace ITLibrium.Reflection.Tests
 
             [UsedImplicitly]
             public string Text;
+            
+            [UsedImplicitly]
+            public DateTime Date { get; }
 
             [UsedImplicitly]
             public int No { get; private set; }
