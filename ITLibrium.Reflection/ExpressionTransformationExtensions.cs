@@ -21,7 +21,7 @@ namespace ITLibrium.Reflection
             if (!(getter.Body is MemberExpression memberExp))
                 throw new ArgumentException(InvalidExpressionError, nameof(getter));
 
-            if (CanSet(memberExp.Member))
+            if (!CanSet(memberExp.Member))
             {
                 setter = null;
                 return false;
