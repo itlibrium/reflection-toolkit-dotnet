@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace ITLibrium.Reflection
+namespace ITLIBRIUM.Reflection
 {
     internal static class ExpressionExtensions
     {

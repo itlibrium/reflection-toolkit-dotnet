@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 using Shouldly;
 using Xunit;
 
-namespace ITLibrium.Reflection.Tests
+namespace ITLIBRIUM.Reflection
 {
     public class MethodExpressionExtensionsTests
     {

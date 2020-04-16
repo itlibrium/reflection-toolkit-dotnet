@@ -2,7 +2,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace ITLibrium.Reflection
+namespace ITLIBRIUM.Reflection
 {
     public static class ExpressionAttributeExtensions
     {

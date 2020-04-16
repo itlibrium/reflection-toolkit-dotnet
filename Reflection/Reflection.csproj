@@ -4,7 +4,7 @@
     <TargetFramework>netstandard1.0</TargetFramework>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Description>Reflection helpers for C#</Description>
-    <Company>ITLibrium</Company>
+    <Company>ITLIBRIUM</Company>
     <Authors>Marcin Markowski</Authors>
     <Version>1.1.0</Version>
     <AssemblyVersion>1.0.1</AssemblyVersion>
@@ -14,6 +14,9 @@
     <FileVersion>1.0.1</FileVersion>
     <PackageReleaseNotes>Getting parameters for LambdaExpression</PackageReleaseNotes>
     <Copyright>ITLIBRIUM</Copyright>
+    <AssemblyName>ITLIBRIUM.Reflection</AssemblyName>
+    <RootNamespace>ITLIBRIUM.Reflection</RootNamespace>
+    <LangVersion>default</LangVersion>
   </PropertyGroup>
 
 </Project>

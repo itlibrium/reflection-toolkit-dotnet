@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITLibrium.Reflection", "ITLibrium.Reflection\ITLibrium.Reflection.csproj", "{7CBCC00B-46C9-474C-9DBF-D599B9F54553}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reflection", "Reflection\Reflection.csproj", "{7CBCC00B-46C9-474C-9DBF-D599B9F54553}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ITLibrium.Reflection.Tests", "ITLibrium.Reflection.Tests\ITLibrium.Reflection.Tests.csproj", "{4D0E6F51-3245-4F26-A67A-40008C770228}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reflection.Tests", "Reflection.Tests\Reflection.Tests.csproj", "{4D0E6F51-3245-4F26-A67A-40008C770228}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
