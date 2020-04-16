@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using JetBrains.Annotations;
 using Shouldly;
@@ -12,7 +13,7 @@ namespace ITLIBRIUM.Reflection
         public void CanCreateSetterForPublicField()
         {
             Expression<Func<Component, string>> expression = c => c.Text;
-            Action<Component, string> setter = expression.CreateSetter();
+            var setter = expression.CreateSetter();
             setter.ShouldNotBeNull();
         }
 
@@ -20,7 +21,7 @@ namespace ITLIBRIUM.Reflection
         public void CanCreateSetterForPropertyWithPublicSetter()
         {
             Expression<Func<Component, int>> expression = c => c.Code;
-            Action<Component, int> setter = expression.CreateSetter();
+            var setter = expression.CreateSetter();
             setter.ShouldNotBeNull();
         }
         
@@ -52,25 +53,20 @@ namespace ITLIBRIUM.Reflection
             Should.Throw<ArgumentException>(() => expression.CreateSetter());
         }
 
-        [UsedImplicitly]
+        [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+        [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local")]
         private class Component
         {
-            [UsedImplicitly]
             public readonly string Id;
 
-            [UsedImplicitly]
             public string Text;
             
-            [UsedImplicitly]
             public DateTime Date { get; }
 
-            [UsedImplicitly]
             public int No { get; private set; }
 
-            [UsedImplicitly]
             public int Code { get; set; }
 
-            [UsedImplicitly]
             public int GetResult() => 1;
         }
     }

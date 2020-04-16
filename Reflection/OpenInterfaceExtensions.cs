@@ -2,22 +2,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using JetBrains.Annotations;
 
 namespace ITLIBRIUM.Reflection
 {
     public static class OpenInterfaceExtensions
     {
+        [PublicAPI]
         public static IEnumerable<Type> GetClosedInterfaces(this Type type, params Type[] openInterfaces)
         {
-            int count = openInterfaces.Length;
+            var count = openInterfaces.Length;
             if (count == 0)
                 throw new ArgumentException("Interfaces list should not be empty", nameof(openInterfaces));
 
             var openInterfacesSet = new HashSet<Type>();
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
-                Type openInterface = openInterfaces[i];
-                TypeInfo openInterfaceInfo = openInterface.GetTypeInfo();
+                var openInterface = openInterfaces[i];
+                var openInterfaceInfo = openInterface.GetTypeInfo();
                 if(!openInterfaceInfo.IsInterface || !openInterfaceInfo.IsGenericTypeDefinition)
                     throw new ArgumentException(
                         $"Interfaces list should contains only open generic interfaces. Wrong type: {openInterface.Name}", 

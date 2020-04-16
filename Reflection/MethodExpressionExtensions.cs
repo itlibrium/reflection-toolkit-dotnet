@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using JetBrains.Annotations;
 
 namespace ITLIBRIUM.Reflection
 {
@@ -9,10 +10,11 @@ namespace ITLIBRIUM.Reflection
     {
         private const string InvalidExpressionError = "Expression should be method";
 
+        [PublicAPI]
         public static IEnumerable<Type> GetParameters(this LambdaExpression lambdaExp)
         {
-            Expression bodyExp = lambdaExp.Body;
-            if (bodyExp.TryGetMethodCallExpression(out MethodCallExpression methodCallExp))
+            var bodyExp = lambdaExp.Body;
+            if (bodyExp.TryGetMethodCallExpression(out var methodCallExp))
                 return methodCallExp.Method.GetParameters().Select(p => p.ParameterType);
 
             throw new ArgumentException(InvalidExpressionError, nameof(lambdaExp));

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
+using JetBrains.Annotations;
 using Shouldly;
 using Xunit;
 
@@ -62,6 +64,8 @@ namespace ITLIBRIUM.Reflection
             parameters.ShouldContain(typeof(Parameter));
         }
 
+        [UsedImplicitly]
+        [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local")]
         private class Component
         {
             public void ParameterlessVoid() { }

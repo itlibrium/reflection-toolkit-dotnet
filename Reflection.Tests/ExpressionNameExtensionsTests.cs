@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using JetBrains.Annotations;
 using Shouldly;
@@ -12,7 +13,7 @@ namespace ITLIBRIUM.Reflection
         public void CanGetNameOfPublicField()
         {
             Expression<Func<Component, string>> expression = c => c.Text;
-            string name = expression.GetName();
+            var name = expression.GetName();
             name.ShouldBe(nameof(Component.Text));
         }
 
@@ -20,7 +21,7 @@ namespace ITLIBRIUM.Reflection
         public void CanGetNameOfProperty()
         {
             Expression<Func<Component, int>> expression = c => c.No;
-            string name = expression.GetName();
+            var name = expression.GetName();
             name.ShouldBe(nameof(Component.No));
         }
 
@@ -28,7 +29,7 @@ namespace ITLIBRIUM.Reflection
         public void CanGetNameOfExplicitlyImplementedProperty()
         {
             Expression<Func<Component, int>> expression = c => ((IComponent) c).ExplicitlyImplementedProperty;
-            string name = expression.GetName();
+            var name = expression.GetName();
             name.ShouldBe(nameof(IComponent.ExplicitlyImplementedProperty));
         }
 
@@ -36,7 +37,7 @@ namespace ITLIBRIUM.Reflection
         public void CanGetNameOfParameterlessVoidMethod()
         {
             Expression<Action<Component>> expression = c => c.Execute();
-            string name = expression.GetName();
+            var name = expression.GetName();
             name.ShouldBe(nameof(Component.Execute));
         }
 
@@ -44,7 +45,7 @@ namespace ITLIBRIUM.Reflection
         public void CanGetNameOfVoidMethodWithParameter()
         {
             Expression<Action<Component>> expression = c => c.Execute(5);
-            string name = expression.GetName();
+            var name = expression.GetName();
             name.ShouldBe(nameof(Component.Execute));
         }
 
@@ -52,7 +53,7 @@ namespace ITLIBRIUM.Reflection
         public void CanGetNameOfParameterlessMethod()
         {
             Expression<Func<Component, int>> expression = c => c.GetResult();
-            string name = expression.GetName();
+            var name = expression.GetName();
             name.ShouldBe(nameof(Component.GetResult));
         }
 
@@ -60,7 +61,7 @@ namespace ITLIBRIUM.Reflection
         public void CanGetNameOfMethodWithParameter()
         {
             Expression<Func<Component, int>> expression = c => c.GetResult(5);
-            string name = expression.GetName();
+            var name = expression.GetName();
             name.ShouldBe(nameof(Component.GetResult));
         }
 
@@ -68,7 +69,7 @@ namespace ITLIBRIUM.Reflection
         public void CanGetNameOfExplicitlyImplementedMethod()
         {
             Expression<Func<Component, int>> expression = c => ((IComponent)c).ExplicitlyImplementedMethod();
-            string name = expression.GetName();
+            var name = expression.GetName();
             name.ShouldBe(nameof(IComponent.ExplicitlyImplementedMethod));
         }
 
@@ -76,7 +77,7 @@ namespace ITLIBRIUM.Reflection
         public void CanGetPathOfFieldMember()
         {
             Expression<Func<Component, int>> expression = c => c.ComplexField.No;
-            string name = expression.GetPath();
+            var name = expression.GetPath();
             name.ShouldBe($"{nameof(Component.ComplexField)}.{nameof(Component.No)}");
         }
 
@@ -84,7 +85,7 @@ namespace ITLIBRIUM.Reflection
         public void CanGetPathOfPropertyMember()
         {
             Expression<Func<Component, int>> expression = c => c.ComplexProperty.No;
-            string name = expression.GetPath();
+            var name = expression.GetPath();
             name.ShouldBe($"{nameof(Component.ComplexProperty)}.{nameof(Component.No)}");
         }
 
@@ -92,7 +93,7 @@ namespace ITLIBRIUM.Reflection
         public void CanGetPathOfMethodResultMember()
         {
             Expression<Func<Component, int>> expression = c => c.GetComplexResult().No;
-            string name = expression.GetPath();
+            var name = expression.GetPath();
             name.ShouldBe($"{nameof(Component.GetComplexResult)}.{nameof(Component.No)}");
         }
 
@@ -100,7 +101,7 @@ namespace ITLIBRIUM.Reflection
         public void CanGetPathOfExplicitlyImplementedPropertyMember()
         {
             Expression<Func<Component, int>> expression = c => ((IComponent)c).ExplicitlyImplementedComplexProperty.No;
-            string name = expression.GetPath();
+            var name = expression.GetPath();
             name.ShouldBe($"{nameof(IComponent.ExplicitlyImplementedComplexProperty)}.{nameof(Component.No)}");
         }
 
@@ -111,18 +112,16 @@ namespace ITLIBRIUM.Reflection
             int ExplicitlyImplementedMethod();
         }
 
-        [UsedImplicitly]
+        [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+        [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local")]
         private class Component : IComponent
         {
-            [UsedImplicitly]
             public string Text;
 
             public int No { get; set; }
 
-            [UsedImplicitly]
             public Component ComplexField;
 
-            [UsedImplicitly]
             public Component ComplexProperty { get; }
 
             public void Execute() { }

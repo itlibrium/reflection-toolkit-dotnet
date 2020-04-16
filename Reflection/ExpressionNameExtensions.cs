@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using JetBrains.Annotations;
 
 namespace ITLIBRIUM.Reflection
 {
@@ -10,33 +11,35 @@ namespace ITLIBRIUM.Reflection
     {
         private const string InvalidExpressionError = "Expression should be method, property or field";
 
+        [PublicAPI]
         public static string GetName(this LambdaExpression lambdaExp)
         {
-            Expression bodyExp = lambdaExp.Body;
-            if (bodyExp.TryGetMemberExpression(out MemberExpression memberExp))
+            var bodyExp = lambdaExp.Body;
+            if (bodyExp.TryGetMemberExpression(out var memberExp))
                 return GetFieldOrPropertyName(memberExp);
 
-            if (bodyExp.TryGetMethodCallExpression(out MethodCallExpression methodCallExp))
+            if (bodyExp.TryGetMethodCallExpression(out var methodCallExp))
                 return methodCallExp.Method.Name;
 
             throw new ArgumentException(InvalidExpressionError, nameof(lambdaExp));
         }
 
+        [PublicAPI]
         public static string GetPath(this LambdaExpression lambdaExp)
         {
             var elements = new List<string>(5);
-            Expression currentExp = lambdaExp.Body;
+            var currentExp = lambdaExp.Body;
             while (true)
             {
-                if (currentExp.TryGetMemberExpression(out MemberExpression memberExp))
+                if (currentExp.TryGetMemberExpression(out var memberExp))
                 {
-                    string element = GetFieldOrPropertyName(memberExp);
+                    var element = GetFieldOrPropertyName(memberExp);
                     elements.Add(element);
                     currentExp = memberExp.Expression;
                 }
-                else if (currentExp.TryGetMethodCallExpression(out MethodCallExpression methodCallExp))
+                else if (currentExp.TryGetMethodCallExpression(out var methodCallExp))
                 {
-                    string element = methodCallExp.Method.Name;
+                    var element = methodCallExp.Method.Name;
                     elements.Add(element);
                     currentExp = methodCallExp.Object;
                 }
@@ -47,7 +50,7 @@ namespace ITLIBRIUM.Reflection
             }
 
             var builder = new StringBuilder();
-            for (int i = elements.Count - 1; i > 0; i--)
+            for (var i = elements.Count - 1; i > 0; i--)
             {
                 builder.Append(elements[i]);
                 builder.Append('.');
@@ -57,17 +60,12 @@ namespace ITLIBRIUM.Reflection
             return builder.ToString();
         }
 
-        private static string GetFieldOrPropertyName(MemberExpression memberExp)
-        {
-            MemberInfo memberInfo = memberExp.Member;
-
-            if (memberInfo is PropertyInfo propertyInfo)
-                return propertyInfo.Name;
-
-            if (memberInfo is FieldInfo fieldInfo)
-                return fieldInfo.Name;
-
-            throw new ArgumentException(InvalidExpressionError, nameof(memberExp));
-        }
+        private static string GetFieldOrPropertyName(MemberExpression memberExp) =>
+            memberExp.Member switch
+            {
+                PropertyInfo propertyInfo => propertyInfo.Name,
+                FieldInfo fieldInfo => fieldInfo.Name,
+                _ => throw new ArgumentException(InvalidExpressionError, nameof(memberExp))
+            };
     }
 }

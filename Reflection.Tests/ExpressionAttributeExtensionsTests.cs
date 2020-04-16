@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using JetBrains.Annotations;
 using Shouldly;
@@ -64,9 +65,10 @@ namespace ITLIBRIUM.Reflection
             attribute.ShouldNotBeNull();
         }
 
+        [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]
+        [SuppressMessage("ReSharper", "MemberCanBeMadeStatic.Local")]
         private class Component
         {
-            [UsedImplicitly]
             [Custom]
             public string Text;
 

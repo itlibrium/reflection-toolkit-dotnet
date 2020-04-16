@@ -11,7 +11,7 @@ namespace ITLIBRIUM.Reflection
         [Fact]
         public void ClosedInterfacesFoundCorrectly()
         {
-            List<Type> interfaces = typeof(TestClass).GetClosedInterfaces(typeof(IInterfaceA<>), typeof(IInterfaceB<>)).ToList();
+            var interfaces = typeof(TestClass).GetClosedInterfaces(typeof(IInterfaceA<>), typeof(IInterfaceB<>)).ToList();
             interfaces.Count.ShouldBe(3);
             interfaces.ShouldContain(typeof(IInterfaceA<int>));
             interfaces.ShouldContain(typeof(IInterfaceA<string>));

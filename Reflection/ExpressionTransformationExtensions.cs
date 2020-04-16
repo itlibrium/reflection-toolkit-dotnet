@@ -1,6 +1,7 @@
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using JetBrains.Annotations;
 
 namespace ITLIBRIUM.Reflection
 {
@@ -8,14 +9,15 @@ namespace ITLIBRIUM.Reflection
     {
         private const string InvalidExpressionError = "Expression should be property with public setter or not readonly field";
 
+        [PublicAPI]
         public static Action<TSource, TValue> CreateSetter<TSource, TValue>(this Expression<Func<TSource, TValue>> getter)
         {
-            if (!TryCreateSetter(getter, out Action<TSource, TValue> setter))
+            if (!TryCreateSetter(getter, out var setter))
                 throw new ArgumentException(InvalidExpressionError, nameof(getter));
-
             return setter;
         }
 
+        [PublicAPI]
         public static bool TryCreateSetter<TSource, TValue>(this Expression<Func<TSource, TValue>> getter, out Action<TSource, TValue> setter)
         {
             if (!(getter.Body is MemberExpression memberExp))
@@ -27,9 +29,8 @@ namespace ITLIBRIUM.Reflection
                 return false;
             }
 
-            ParameterExpression sourceExp = Expression.Parameter(typeof(TSource));
-            ParameterExpression valueExp = Expression.Parameter(typeof(TValue));
-
+            var sourceExp = Expression.Parameter(typeof(TSource));
+            var valueExp = Expression.Parameter(typeof(TValue));
             setter = Expression.Lambda<Action<TSource, TValue>>(
                 Expression.Assign(
                     Expression.MakeMemberAccess(
@@ -38,21 +39,15 @@ namespace ITLIBRIUM.Reflection
                     valueExp),
                 sourceExp,
                 valueExp).Compile();
-
             return true;
         }
 
-        private static bool CanSet(MemberInfo memberInfo)
-        {
-            switch (memberInfo)
+        private static bool CanSet(MemberInfo memberInfo) =>
+            memberInfo switch
             {
-                case PropertyInfo propertyInfo:
-                    return propertyInfo.SetMethod != null && propertyInfo.SetMethod.IsPublic;
-                case FieldInfo fieldInfo:
-                    return !fieldInfo.IsInitOnly;
-                default:
-                    return false;
-            }
-        }
+                PropertyInfo propertyInfo => (propertyInfo.SetMethod != null && propertyInfo.SetMethod.IsPublic),
+                FieldInfo fieldInfo => !fieldInfo.IsInitOnly,
+                _ => false
+            };
     }
 }
