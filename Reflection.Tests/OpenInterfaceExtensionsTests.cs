@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Shouldly;
+using FluentAssertions;
 using Xunit;
 
 namespace ITLIBRIUM.Reflection
@@ -13,28 +13,31 @@ namespace ITLIBRIUM.Reflection
         {
             var interfaces = typeof(TestClass).GetClosedInterfaces(typeof(IInterfaceA<>), typeof(IInterfaceB<>))
                 .ToList();
-            interfaces.Count.ShouldBe(3);
-            interfaces.ShouldContain(typeof(IInterfaceA<int>));
-            interfaces.ShouldContain(typeof(IInterfaceA<string>));
-            interfaces.ShouldContain(typeof(IInterfaceB<double>));
+            interfaces.Count.Should().Be(3);
+            interfaces.Should().Contain(typeof(IInterfaceA<int>));
+            interfaces.Should().Contain(typeof(IInterfaceA<string>));
+            interfaces.Should().Contain(typeof(IInterfaceB<double>));
         }
 
         [Fact]
         public void InterfacesListShouldNotBeEmpty()
         {
-            Should.Throw<ArgumentException>(() => typeof(TestClass).GetClosedInterfaces());
+            Func<IEnumerable<Type>> action = () => typeof(TestClass).GetClosedInterfaces();
+            action.Should().Throw<ArgumentException>();
         }
 
         [Fact]
         public void InterfacesListShouldContainsOnlyOpenGenerics()
         {
-            Should.Throw<ArgumentException>(() => typeof(TestClass).GetClosedInterfaces(typeof(IInterfaceA<int>)));
+            Func<IEnumerable<Type>> action = () => typeof(TestClass).GetClosedInterfaces(typeof(IInterfaceA<int>));
+            action.Should().Throw<ArgumentException>();
         }
 
         [Fact]
         public void InterfacesListShouldContainsOnlyInterfaces()
         {
-            Should.Throw<ArgumentException>(() => typeof(TestClass).GetClosedInterfaces(typeof(GenericClass<>)));
+            Func<IEnumerable<Type>> action = () => typeof(TestClass).GetClosedInterfaces(typeof(GenericClass<>));
+            action.Should().Throw<ArgumentException>();
         }
 
         private interface IInterfaceA<T> { }

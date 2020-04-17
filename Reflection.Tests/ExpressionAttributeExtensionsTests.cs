@@ -1,8 +1,8 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
+using FluentAssertions;
 using JetBrains.Annotations;
-using Shouldly;
 using Xunit;
 
 namespace ITLIBRIUM.Reflection
@@ -14,7 +14,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, string>> expression = c => c.Text;
             var attribute = expression.GetAttribute<CustomAttribute>();
-            attribute.ShouldNotBeNull();
+            attribute.Should().NotBeNull();
         }
 
         [Fact]
@@ -22,7 +22,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => c.No;
             var attribute = expression.GetAttribute<CustomAttribute>();
-            attribute.ShouldNotBeNull();
+            attribute.Should().NotBeNull();
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Action<Component>> expression = c => c.Execute();
             var attribute = expression.GetAttribute<CustomAttribute>();
-            attribute.ShouldNotBeNull();
+            attribute.Should().NotBeNull();
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Action<Component>> expression = c => c.Execute(5);
             var attribute = expression.GetAttribute<CustomAttribute>();
-            attribute.ShouldNotBeNull();
+            attribute.Should().NotBeNull();
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => c.GetResult();
             var attribute = expression.GetAttribute<CustomAttribute>();
-            attribute.ShouldNotBeNull();
+            attribute.Should().NotBeNull();
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => c.GetResult(5);
             var attribute = expression.GetAttribute<CustomAttribute>();
-            attribute.ShouldNotBeNull();
+            attribute.Should().NotBeNull();
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component>> expression = () => new Component(3);
             var attribute = expression.GetAttribute<CustomAttribute>();
-            attribute.ShouldNotBeNull();
+            attribute.Should().NotBeNull();
         }
 
         [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]

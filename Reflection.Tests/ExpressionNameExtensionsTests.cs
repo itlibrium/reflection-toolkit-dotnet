@@ -1,8 +1,8 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
+using FluentAssertions;
 using JetBrains.Annotations;
-using Shouldly;
 using Xunit;
 
 namespace ITLIBRIUM.Reflection
@@ -14,7 +14,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, string>> expression = c => c.Text;
             var name = expression.GetName();
-            name.ShouldBe(nameof(Component.Text));
+            name.Should().Be(nameof(Component.Text));
         }
 
         [Fact]
@@ -22,7 +22,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => c.No;
             var name = expression.GetName();
-            name.ShouldBe(nameof(Component.No));
+            name.Should().Be(nameof(Component.No));
         }
 
         [Fact]
@@ -30,7 +30,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => ((IComponent) c).ExplicitlyImplementedProperty;
             var name = expression.GetName();
-            name.ShouldBe(nameof(IComponent.ExplicitlyImplementedProperty));
+            name.Should().Be(nameof(IComponent.ExplicitlyImplementedProperty));
         }
 
         [Fact]
@@ -38,7 +38,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Action<Component>> expression = c => c.Execute();
             var name = expression.GetName();
-            name.ShouldBe(nameof(Component.Execute));
+            name.Should().Be(nameof(Component.Execute));
         }
 
         [Fact]
@@ -46,7 +46,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Action<Component>> expression = c => c.Execute(5);
             var name = expression.GetName();
-            name.ShouldBe(nameof(Component.Execute));
+            name.Should().Be(nameof(Component.Execute));
         }
 
         [Fact]
@@ -54,7 +54,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => c.GetResult();
             var name = expression.GetName();
-            name.ShouldBe(nameof(Component.GetResult));
+            name.Should().Be(nameof(Component.GetResult));
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => c.GetResult(5);
             var name = expression.GetName();
-            name.ShouldBe(nameof(Component.GetResult));
+            name.Should().Be(nameof(Component.GetResult));
         }
 
         [Fact]
@@ -70,7 +70,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => ((IComponent) c).ExplicitlyImplementedMethod();
             var name = expression.GetName();
-            name.ShouldBe(nameof(IComponent.ExplicitlyImplementedMethod));
+            name.Should().Be(nameof(IComponent.ExplicitlyImplementedMethod));
         }
 
         [Fact]
@@ -78,7 +78,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => c.ComplexField.No;
             var name = expression.GetPath();
-            name.ShouldBe($"{nameof(Component.ComplexField)}.{nameof(Component.No)}");
+            name.Should().Be($"{nameof(Component.ComplexField)}.{nameof(Component.No)}");
         }
 
         [Fact]
@@ -86,7 +86,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => c.ComplexProperty.No;
             var name = expression.GetPath();
-            name.ShouldBe($"{nameof(Component.ComplexProperty)}.{nameof(Component.No)}");
+            name.Should().Be($"{nameof(Component.ComplexProperty)}.{nameof(Component.No)}");
         }
 
         [Fact]
@@ -94,7 +94,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => c.GetComplexResult().No;
             var name = expression.GetPath();
-            name.ShouldBe($"{nameof(Component.GetComplexResult)}.{nameof(Component.No)}");
+            name.Should().Be($"{nameof(Component.GetComplexResult)}.{nameof(Component.No)}");
         }
 
         [Fact]
@@ -102,7 +102,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => ((IComponent) c).ExplicitlyImplementedComplexProperty.No;
             var name = expression.GetPath();
-            name.ShouldBe($"{nameof(IComponent.ExplicitlyImplementedComplexProperty)}.{nameof(Component.No)}");
+            name.Should().Be($"{nameof(IComponent.ExplicitlyImplementedComplexProperty)}.{nameof(Component.No)}");
         }
 
         private interface IComponent

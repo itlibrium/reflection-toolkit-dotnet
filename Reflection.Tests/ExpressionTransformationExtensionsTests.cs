@@ -1,8 +1,8 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
+using FluentAssertions;
 using JetBrains.Annotations;
-using Shouldly;
 using Xunit;
 
 namespace ITLIBRIUM.Reflection
@@ -14,7 +14,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, string>> expression = c => c.Text;
             var setter = expression.CreateSetter();
-            setter.ShouldNotBeNull();
+            setter.Should().NotBeNull();
         }
 
         [Fact]
@@ -22,35 +22,39 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => c.Code;
             var setter = expression.CreateSetter();
-            setter.ShouldNotBeNull();
+            setter.Should().NotBeNull();
         }
 
         [Fact]
         public void CanNotCreateSetterForReadOnlyProperty()
         {
             Expression<Func<Component, DateTime>> expression = c => c.Date;
-            Should.Throw<ArgumentException>(() => expression.CreateSetter());
+            Action action = () => expression.CreateSetter();
+            action.Should().Throw<ArgumentException>();
         }
 
         [Fact]
         public void CanNotCreateSetterForReadOnlyField()
         {
             Expression<Func<Component, string>> expression = c => c.Id;
-            Should.Throw<ArgumentException>(() => expression.CreateSetter());
+            Action action = () => expression.CreateSetter();
+            action.Should().Throw<ArgumentException>();
         }
 
         [Fact]
         public void CanNotCreateSetterForPropertyWithPrivateSetter()
         {
             Expression<Func<Component, int>> expression = c => c.No;
-            Should.Throw<ArgumentException>(() => expression.CreateSetter());
+            Action action = () => expression.CreateSetter();
+            action.Should().Throw<ArgumentException>();
         }
 
         [Fact]
         public void CantCreateSetterForMethod()
         {
             Expression<Func<Component, int>> expression = c => c.GetResult();
-            Should.Throw<ArgumentException>(() => expression.CreateSetter());
+            Action action = () => expression.CreateSetter();
+            action.Should().Throw<ArgumentException>();
         }
 
         [UsedImplicitly(ImplicitUseTargetFlags.WithMembers)]

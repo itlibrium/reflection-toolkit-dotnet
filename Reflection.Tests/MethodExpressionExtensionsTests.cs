@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using FluentAssertions;
 using JetBrains.Annotations;
-using Shouldly;
 using Xunit;
 
 namespace ITLIBRIUM.Reflection
@@ -16,7 +15,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Action<Component>> expression = c => c.ParameterlessVoid();
             var parameters = expression.GetParameters().ToList();
-            parameters.Count.ShouldBe(0);
+            parameters.Count.Should().Be(0);
         }
 
         [Fact]
@@ -24,7 +23,7 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => c.ParameterlessNonVoid();
             var parameters = expression.GetParameters().ToList();
-            parameters.Count.ShouldBe(0);
+            parameters.Count.Should().Be(0);
         }
 
         [Fact]
@@ -32,8 +31,8 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Action<Component>> expression = c => c.SingleParameterVoid(3);
             var parameters = expression.GetParameters().ToList();
-            parameters.Count.ShouldBe(1);
-            parameters.ShouldContain(typeof(int));
+            parameters.Count.Should().Be(1);
+            parameters.Should().Contain(typeof(int));
         }
 
         [Fact]
@@ -41,8 +40,8 @@ namespace ITLIBRIUM.Reflection
         {
             Expression<Func<Component, int>> expression = c => c.SingleParameterNonVoid("test");
             var parameters = expression.GetParameters().ToList();
-            parameters.Count.ShouldBe(1);
-            parameters.ShouldContain(typeof(string));
+            parameters.Count.Should().Be(1);
+            parameters.Should().Contain(typeof(string));
         }
 
         [Fact]
@@ -51,10 +50,10 @@ namespace ITLIBRIUM.Reflection
             Expression<Action<Component>> expression = c =>
                 c.MultiParametersVoid(3, new ClassParameter(), new StructParameter());
             var parameters = expression.GetParameters().ToList();
-            parameters.Count.ShouldBe(3);
-            parameters.ShouldContain(typeof(int));
-            parameters.ShouldContain(typeof(ClassParameter));
-            parameters.ShouldContain(typeof(StructParameter));
+            parameters.Count.Should().Be(3);
+            parameters.Should().Contain(typeof(int));
+            parameters.Should().Contain(typeof(ClassParameter));
+            parameters.Should().Contain(typeof(StructParameter));
         }
 
         [Fact]
@@ -63,10 +62,10 @@ namespace ITLIBRIUM.Reflection
             Expression<Func<Component, int>> expression = c =>
                 c.MultiParametersNonVoid("test", new ClassParameter(), ReadonlyStructParameter.New(1.23));
             var parameters = expression.GetParameters().ToList();
-            parameters.Count.ShouldBe(3);
-            parameters.ShouldContain(typeof(string));
-            parameters.ShouldContain(typeof(ClassParameter));
-            parameters.ShouldContain(typeof(ReadonlyStructParameter));
+            parameters.Count.Should().Be(3);
+            parameters.Should().Contain(typeof(string));
+            parameters.Should().Contain(typeof(ClassParameter));
+            parameters.Should().Contain(typeof(ReadonlyStructParameter));
         }
 
         [Fact]
@@ -106,7 +105,7 @@ namespace ITLIBRIUM.Reflection
             Expression<Func<Component, int>> expression = c =>
                 c.MultiParametersNonVoid("test", new ClassParameter(), ReadonlyStructParameter.New(1.23));
             var parameterValues = expression.GetParameterValues().ToList();
-            parameterValues.Count.ShouldBe(3);
+            parameterValues.Count.Should().Be(3);
             parameterValues[0].Should().Be("test");
             parameterValues[1].Should().BeOfType<ClassParameter>();
             parameterValues[2].Should().BeOfType<ReadonlyStructParameter>();
