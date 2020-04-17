@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using JetBrains.Annotations;
 
-namespace ITLIBRIUM.Reflection
+namespace ITLIBRIUM.ReflectionToolkit
 {
     public static class ExpressionNameExtensions
     {

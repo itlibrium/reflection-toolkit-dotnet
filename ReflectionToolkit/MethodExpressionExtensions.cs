@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Runtime.Serialization;
 using JetBrains.Annotations;
 
-namespace ITLIBRIUM.Reflection
+namespace ITLIBRIUM.ReflectionToolkit
 {
     public static class MethodExpressionExtensions
     {

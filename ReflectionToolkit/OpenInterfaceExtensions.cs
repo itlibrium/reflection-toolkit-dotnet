@@ -4,7 +4,7 @@ using System.Linq;
 using System.Reflection;
 using JetBrains.Annotations;
 
-namespace ITLIBRIUM.Reflection
+namespace ITLIBRIUM.ReflectionToolkit
 {
     public static class OpenInterfaceExtensions
     {

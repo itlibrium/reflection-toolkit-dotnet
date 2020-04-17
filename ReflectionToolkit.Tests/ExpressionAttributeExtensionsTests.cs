@@ -5,7 +5,7 @@ using FluentAssertions;
 using JetBrains.Annotations;
 using Xunit;
 
-namespace ITLIBRIUM.Reflection
+namespace ITLIBRIUM.ReflectionToolkit
 {
     public class ExpressionAttributeExtensionsTests
     {

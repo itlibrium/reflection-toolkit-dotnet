@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using JetBrains.Annotations;
 
-namespace ITLIBRIUM.Reflection
+namespace ITLIBRIUM.ReflectionToolkit
 {
     public static class ExpressionTransformationExtensions
     {

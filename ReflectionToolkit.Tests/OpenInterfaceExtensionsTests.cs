@@ -4,7 +4,7 @@ using System.Linq;
 using FluentAssertions;
 using Xunit;
 
-namespace ITLIBRIUM.Reflection
+namespace ITLIBRIUM.ReflectionToolkit
 {
     public class OpenInterfaceExtensionsTests
     {

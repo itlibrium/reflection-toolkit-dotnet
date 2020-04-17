@@ -5,9 +5,9 @@
 
     <IsPackable>false</IsPackable>
 
-    <AssemblyName>ITLIBRIUM.Reflection.Tests</AssemblyName>
+    <AssemblyName>ITLIBRIUM.ReflectionToolkit.Tests</AssemblyName>
 
-    <RootNamespace>ITLIBRIUM.Reflection</RootNamespace>
+    <RootNamespace>ITLIBRIUM.ReflectionToolkit</RootNamespace>
 
     <LangVersion>default</LangVersion>
   </PropertyGroup>
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Reflection\Reflection.csproj" />
+    <ProjectReference Include="..\ReflectionToolkit\ReflectionToolkit.csproj" />
   </ItemGroup>
 
 </Project>
