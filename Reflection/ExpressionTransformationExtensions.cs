@@ -7,10 +7,12 @@ namespace ITLIBRIUM.Reflection
 {
     public static class ExpressionTransformationExtensions
     {
-        private const string InvalidExpressionError = "Expression should be property with public setter or not readonly field";
+        private const string InvalidExpressionError =
+            "Expression should be property with public setter or not readonly field";
 
         [PublicAPI]
-        public static Action<TSource, TValue> CreateSetter<TSource, TValue>(this Expression<Func<TSource, TValue>> getter)
+        public static Action<TSource, TValue> CreateSetter<TSource, TValue>(
+            this Expression<Func<TSource, TValue>> getter)
         {
             if (!TryCreateSetter(getter, out var setter))
                 throw new ArgumentException(InvalidExpressionError, nameof(getter));
@@ -18,7 +20,8 @@ namespace ITLIBRIUM.Reflection
         }
 
         [PublicAPI]
-        public static bool TryCreateSetter<TSource, TValue>(this Expression<Func<TSource, TValue>> getter, out Action<TSource, TValue> setter)
+        public static bool TryCreateSetter<TSource, TValue>(this Expression<Func<TSource, TValue>> getter,
+            out Action<TSource, TValue> setter)
         {
             if (!(getter.Body is MemberExpression memberExp))
                 throw new ArgumentException(InvalidExpressionError, nameof(getter));

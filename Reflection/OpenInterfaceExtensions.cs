@@ -20,9 +20,9 @@ namespace ITLIBRIUM.Reflection
             {
                 var openInterface = openInterfaces[i];
                 var openInterfaceInfo = openInterface.GetTypeInfo();
-                if(!openInterfaceInfo.IsInterface || !openInterfaceInfo.IsGenericTypeDefinition)
+                if (!openInterfaceInfo.IsInterface || !openInterfaceInfo.IsGenericTypeDefinition)
                     throw new ArgumentException(
-                        $"Interfaces list should contains only open generic interfaces. Wrong type: {openInterface.Name}", 
+                        $"Interfaces list should contains only open generic interfaces. Wrong type: {openInterface.Name}",
                         nameof(openInterfaces));
 
                 openInterfacesSet.Add(openInterface);

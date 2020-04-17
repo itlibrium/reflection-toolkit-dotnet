@@ -68,7 +68,7 @@ namespace ITLIBRIUM.Reflection
         [Fact]
         public void CanGetNameOfExplicitlyImplementedMethod()
         {
-            Expression<Func<Component, int>> expression = c => ((IComponent)c).ExplicitlyImplementedMethod();
+            Expression<Func<Component, int>> expression = c => ((IComponent) c).ExplicitlyImplementedMethod();
             var name = expression.GetName();
             name.ShouldBe(nameof(IComponent.ExplicitlyImplementedMethod));
         }
@@ -100,7 +100,7 @@ namespace ITLIBRIUM.Reflection
         [Fact]
         public void CanGetPathOfExplicitlyImplementedPropertyMember()
         {
-            Expression<Func<Component, int>> expression = c => ((IComponent)c).ExplicitlyImplementedComplexProperty.No;
+            Expression<Func<Component, int>> expression = c => ((IComponent) c).ExplicitlyImplementedComplexProperty.No;
             var name = expression.GetPath();
             name.ShouldBe($"{nameof(IComponent.ExplicitlyImplementedComplexProperty)}.{nameof(Component.No)}");
         }

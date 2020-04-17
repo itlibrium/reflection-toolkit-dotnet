@@ -24,7 +24,7 @@ namespace ITLIBRIUM.Reflection
             var setter = expression.CreateSetter();
             setter.ShouldNotBeNull();
         }
-        
+
         [Fact]
         public void CanNotCreateSetterForReadOnlyProperty()
         {
@@ -60,7 +60,7 @@ namespace ITLIBRIUM.Reflection
             public readonly string Id;
 
             public string Text;
-            
+
             public DateTime Date { get; }
 
             public int No { get; private set; }
